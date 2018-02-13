@@ -1,0 +1,17 @@
+{
+  "files": {
+    "bosses.json": "6ddc3583c3e55f54ef74ccd9bf22a92b4800e79056fa574a20ef67102f1c9d72",
+    "index.js": "14d31eef4cd0eba9e85dbd0476021c9d88d0a7710c103db3a86f2090333ea3b6",
+    "module.json": "978cbcf0dcbcca570fe51970e3df3a136e455094eba55582dad2471602ee2027"
+  },
+	"defs": {
+		"S_LOGIN": 9,
+		"S_SPAWN_NPC": 5,
+		"S_DESPAWN_NPC": 2,
+		"S_CURRENT_CHANNEL": 2,
+		"S_LOAD_TOPO": 2,
+		"S_SPAWN_DROPITEM": 5,
+		"S_DESPAWN_DROPITEM": 3,
+		"S_DUNGEON_EVENT_MESSAGE": 1
+    }
+}
