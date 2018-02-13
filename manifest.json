@@ -2,7 +2,7 @@
   "files": {
     "bosses.json": "6ddc3583c3e55f54ef74ccd9bf22a92b4800e79056fa574a20ef67102f1c9d72",
     "index.js": "ebebfc4a21b81f002d718c61ad3774427b3ff4936b006048018fee5707811852",
-    "module.json": "374a86abfe2190898cfda2d2f439d9a9eaf6671b9e74311b6a9080aa83179136"
+    "module.json": "80c1fcae5f456ac191980af863f98c13ca59ad67b3cf5b9ac56f165e7480dcd0"
   },
 	"defs": {
 		"S_LOGIN": 9,
