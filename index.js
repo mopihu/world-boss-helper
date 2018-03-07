@@ -1,3 +1,4 @@
+const Command = require('command')
 const config = require("./config.json")
 const bosses = require("./bosses.json")
 const request = require('request')
@@ -9,42 +10,70 @@ let messager = config.messager
 let marker = config.marker
 let discord = config.discordWebhookUrl
 let mention = config.mention
+let warnlist = config.warnlis
 
-const Command = require('command')
-
-module.exports = function wbhunter(dispatch) {
+module.exports = function WorldBossHelper(dispatch) {
   const command = Command(dispatch)
 
+  let zones = [7004, 7014, 7021, 7022]
+  let currentZone
   let bossName
   let mobid = []
 
-  command.add('wbh', (arg) => {
-    switch (arg) {
+  command.add('wbh', (arg1, arg2) => {
+    switch (arg1) {
       case 'alert':
         alerted = !alerted
-        command.message(alerted ? ' (World-Boss) System popup notice enabled.' : ' (World-Boss) System popup notice disabled.')
+        command.message(alerted ? ' (World-Boss) System popup notice: [' + green('ON') + '].' : ' (World-Boss) System popup notice: [' + red('OFF') + '].')
         break
 
       case 'msg':
         messager = !messager
-        command.message(messager ? ' (World-Boss) System message enabled.' : ' (World-Boss) System message disabled.')
+        command.message(messager ? ' (World-Boss) System message: [' + green('ON') + '].' : ' (World-Boss) System message: [' + red('OFF') + '].')
         break
 
       case 'mark':
         marker = !marker
-        command.message(marker ? ' (World-Boss) Markers enabled.' : ' (World-Boss) Markers disabled.')
+        command.message(marker ? ' (World-Boss) Markers: [' + green('ON') + '].' : ' (World-Boss) Markers: [' + red('OFF') + '].')
         break
 
       case 'clear':
         command.message(' (World-Boss) Markers cleared.')
-        for (let itemId of mobid) despawnthis(itemId)
+        for (let itemId of mobid) {
+          despawnthis(itemId)
+        }
+        break
+
+      case 'warnlist':
+        command.message(' (World-Boss) Warn list: ' + warnlist.join(', '))
+        break
+
+      case 'addwarn':
+        if (!warnlist.includes(arg2)) {
+          warnlist.push(arg2)
+          command.message(' (World-Boss) Added to warn list: [' + green(arg2) + '].')
+        } else {
+          command.message(' (World-Boss) [' + green(arg2) + '] is already on your warn list.')
+        }
+        break
+
+      case 'removewarn':
+        if (warnlist.includes(arg2)) {
+          warnlist.splice(warnlist.indexOf(arg2), 1)
+          command.message(' (World-Boss) Removed from warn list: [' + red(arg2) + '].')
+        } else {
+          command.message(' (World-Boss) [' + red(arg2) + '] is not on your warn list.')
+        }
         break
 
       default:
         enabled = !enabled
-        command.message(enabled ? ' (World-Boss) Module enabled.' : ' (World-Boss) Module disabled.')
-        if (!enabled)
-          for (let itemId of mobid) despawnthis(itemId)
+        command.message(enabled ? ' (World-Boss) Module: [' + green('ON') + '].' : ' (World-Boss) Module: [' + red('OFF') + '].')
+        if (!enabled) {
+          for (let itemId of mobid) {
+            despawnthis(itemId)
+          }
+        }
     }
   })
 
@@ -54,6 +83,7 @@ module.exports = function wbhunter(dispatch) {
   })
 
   dispatch.hook('S_LOAD_TOPO', 2, event => {
+    currentZone = event.zone
     mobid = []
   })
 
@@ -66,10 +96,9 @@ module.exports = function wbhunter(dispatch) {
     if (enabled && (boss = bosses.filter(b => b.huntingZoneId.includes(event.huntingZoneId) && b.templateId === event.templateId)[0])) {
       bossName = boss.name
       if (marker) {
-        markthis(event.x, event.y, event.z, event.gameId.low),
-          mobid.push(event.gameId.low)
+        markthis(event.x, event.y, event.z, event.gameId.low)
+        mobid.push(event.gameId.low)
       }
-
       request.post('https://tera.zone/worldboss/upload.php', {
         form: {
           serverId: serverId,
@@ -88,47 +117,60 @@ module.exports = function wbhunter(dispatch) {
           console.log('[world-boss] ' + body)
         }
       })
-
-      if (alerted)
+      if (alerted) {
         notice('Found boss: ' + bossName + '!')
-
-      if (messager)
+      }
+      if (messager) {
         command.message(' (World-Boss) Found boss: ' + bossName + '!')
+      }
     }
   })
 
   dispatch.hook('S_DESPAWN_NPC', 2, event => {
     if (mobid.includes(event.gameId.low)) {
-      if (event.type == 5) {
-        request.post('https://tera.zone/worldboss/upload.php', {
-          form: {
-            serverId: serverId,
-            playerName: playerName,
-            bossName: bossName,
-            channel: currentChannel,
-            time: new Date().getTime(),
-            status: 'killed',
-            discord: encodeURIComponent(discord)
+      if (alerted && bossName) {
+        if (event.type == 5) {
+          request.post('https://tera.zone/worldboss/upload.php', {
+            form: {
+              serverId: serverId,
+              playerName: playerName,
+              bossName: bossName,
+              channel: currentChannel,
+              time: new Date().getTime(),
+              status: 'killed',
+              discord: encodeURIComponent(discord)
+            }
+          }, function(err, httpResponse, body) {
+            if (err) {
+              console.log(err)
+            } else {
+              console.log('[world-boss] ' + body)
+            }
+          })
+          if (alerted) {
+            notice(bossName + ' is dead!')
           }
-        }, function(err, httpResponse, body) {
-          if (err) {
-            console.log(err)
-          } else {
-            console.log('[world-boss] ' + body)
+          if (messager) {
+            command.message(' (World-Boss) ' + bossName + ' is dead!')
           }
-        })
-        if (alerted && bossName) {
-          notice(bossName + ' is dead!')
-        }
-      } else if (event.type == 1) {
-        if (alerted && bossName) {
-          notice(bossName + ' is out of range...')
+        } else if (event.type == 1) {
+          if (alerted) {
+            notice(bossName + ' is out of range...')
+          }
+          if (messager) {
+            command.message(' (World-Boss) ' + bossName + ' is out of range...')
+          }
         }
       }
-
       bossName = null
-      despawnthis(event.gameId.low),
-        mobid.splice(mobid.indexOf(event.gameId.low), 1)
+      despawnthis(event.gameId.low)
+      mobid.splice(mobid.indexOf(event.gameId.low), 1)
+    }
+  })
+
+  dispatch.hook('S_SPAWN_USER', 11, event => {
+    if (zones.includes(currentZone) && warnlist.includes(event.name)) {
+      warn(event.name)
     }
   })
 
@@ -165,8 +207,26 @@ module.exports = function wbhunter(dispatch) {
     dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 1, {
       unk1: 42,
       unk2: 0,
-      unk3: 27,
+      unk3: 0,
       message: msg
     })
+  }
+
+  function warn(name) {
+    command.message(' (World-Boss) Player nearby: [' + red(name) + '].')
+    dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 1, {
+      unk1: 69,
+      unk2: 0,
+      unk3: 0,
+      message: 'Player nearby: ' + red(name)
+    })
+  }
+
+  function green(text) {
+    return '<font color="#78DD56">' + text + '</font>'
+  }
+
+  function red(text) {
+    return '<font color="#FF7F7F">' + text + '</font>'
   }
 }
