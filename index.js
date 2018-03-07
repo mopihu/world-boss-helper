@@ -10,7 +10,7 @@ let messager = config.messager
 let marker = config.marker
 let discord = config.discordWebhookUrl
 let mention = config.mention
-let warnlist = config.warnlis
+let warnlist = config.warnlist
 
 module.exports = function WorldBossHelper(dispatch) {
   const command = Command(dispatch)
