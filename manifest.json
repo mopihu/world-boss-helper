@@ -1,8 +1,8 @@
 {
   "files": {
     "bosses.json": "2e0d5bbc5e6aa03565b6c645e661a1a0e474a6be1d66b05d5cdfab734792bfcb",
-    "index.js": "ad1482aad63899ffb34cb094a4b24c2714f653029f60e8bbe6035d639aad497e",
-    "module.json": "80c1fcae5f456ac191980af863f98c13ca59ad67b3cf5b9ac56f165e7480dcd0"
+    "index.js": "9a57fefa520927fad6f0b47d7f7a46c92b228e67a58631c3cdbc1f2e8fd59276",
+    "module.json": "d5a071ec8fd2a1dfffc0d0acce13a68dbc3d9419e239f8d45a55ab25adf8a02c"
   },
 	"defs": {
 		"S_LOGIN": 9,
