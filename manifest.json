@@ -1,17 +1,18 @@
 {
   "files": {
     "bosses.json": "2e0d5bbc5e6aa03565b6c645e661a1a0e474a6be1d66b05d5cdfab734792bfcb",
-    "index.js": "e5fce6caa91b3dccb969469a0291507fa8bf3429ccf8f118cd62b6911d8d6c77",
+    "index.js": "6d6aa9540a57d8b8e1142ed6428ec6e3b7841bac6e3d69e3b08609ab70fd997c",
     "module.json": "d5a071ec8fd2a1dfffc0d0acce13a68dbc3d9419e239f8d45a55ab25adf8a02c"
   },
-	"defs": {
-		"S_LOGIN": 9,
-		"S_SPAWN_NPC": 5,
-		"S_DESPAWN_NPC": 2,
-		"S_CURRENT_CHANNEL": 2,
-		"S_LOAD_TOPO": 2,
-		"S_SPAWN_DROPITEM": 5,
-		"S_DESPAWN_DROPITEM": 3,
-		"S_DUNGEON_EVENT_MESSAGE": 1
-    }
+  "defs": {
+    "S_LOGIN": 10,
+    "S_SPAWN_NPC": 6,
+    "S_DESPAWN_NPC": 3,
+    "S_CURRENT_CHANNEL": 2,
+    "S_LOAD_TOPO": 2,
+    "S_SPAWN_DROPITEM": 6,
+    "S_DESPAWN_DROPITEM": 4,
+    "S_DUNGEON_EVENT_MESSAGE": 1,
+    "S_SPAWN_USER": 13
+  }
 }
