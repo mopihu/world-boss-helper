@@ -1,7 +1,8 @@
 const Command = require('command')
-const config = require("./config.json")
-const bosses = require("./bosses.json")
+const Vec3 = require('tera-vec3')
 const request = require('request')
+const config = require('./config.json')
+const bosses = require('./bosses.json')
 const itemId = 98260
 
 let enabled = config.enabled
@@ -77,12 +78,12 @@ module.exports = function WorldBossHelper(dispatch) {
     }
   })
 
-  dispatch.hook('S_LOGIN', 9, event => {
+  dispatch.hook('S_LOGIN', 10, event => {
     serverId = event.serverId
     playerName = event.name
   })
 
-  dispatch.hook('S_LOAD_TOPO', 2, event => {
+  dispatch.hook('S_LOAD_TOPO', 3, event => {
     currentZone = event.zone
     mobid = []
   })
@@ -91,12 +92,12 @@ module.exports = function WorldBossHelper(dispatch) {
     currentChannel = event.channel
   })
 
-  dispatch.hook('S_SPAWN_NPC', 5, event => {
+  dispatch.hook('S_SPAWN_NPC', 6, event => {
     let boss
     if (enabled && (boss = bosses.filter(b => b.huntingZoneId.includes(event.huntingZoneId) && b.templateId === event.templateId)[0])) {
       bossName = boss.name
       if (marker) {
-        markthis(event.x, event.y, event.z, event.gameId.low)
+        markthis(event.loc.x, event.loc.y, event.loc.z, event.gameId.low)
         mobid.push(event.gameId.low)
       }
       request.post('https://tera.zone/worldboss/upload.php', {
@@ -126,7 +127,7 @@ module.exports = function WorldBossHelper(dispatch) {
     }
   })
 
-  dispatch.hook('S_DESPAWN_NPC', 2, event => {
+  dispatch.hook('S_DESPAWN_NPC', 3, event => {
     if (mobid.includes(event.gameId.low)) {
       if (alerted && bossName) {
         if (event.type == 5) {
@@ -168,22 +169,21 @@ module.exports = function WorldBossHelper(dispatch) {
     }
   })
 
-  dispatch.hook('S_SPAWN_USER', 11, event => {
+  dispatch.hook('S_SPAWN_USER', 13, event => {
     if (zones.includes(currentZone) && warnlist.includes(event.name)) {
       warn(event.name)
     }
   })
 
   function markthis(locationx, locationy, locationz, idRef) {
-    dispatch.toClient('S_SPAWN_DROPITEM', 5, {
-      id: {
+    let itemloc = new Vec3(locationx, locationy, locationz)
+    dispatch.toClient('S_SPAWN_DROPITEM', 6, {
+      gameId: {
         low: idRef,
         high: 0,
         unsigned: true
       },
-      x: locationx,
-      y: locationy,
-      z: locationz,
+      loc: itemloc,
       item: itemId,
       amount: 1,
       expiry: 600000,
@@ -194,8 +194,8 @@ module.exports = function WorldBossHelper(dispatch) {
   }
 
   function despawnthis(despawnid) {
-    dispatch.toClient('S_DESPAWN_DROPITEM', 3, {
-      id: {
+    dispatch.toClient('S_DESPAWN_DROPITEM', 4, {
+      gameId: {
         low: despawnid,
         high: 0,
         unsigned: true
