@@ -92,7 +92,7 @@ module.exports = function WorldBossHelper(dispatch) {
     currentChannel = event.channel
   })
 
-  dispatch.hook('S_SPAWN_NPC', 6, event => {
+  dispatch.hook('S_SPAWN_NPC', 7, event => {
     let boss
     if (enabled && (boss = bosses.filter(b => b.huntingZoneId.includes(event.huntingZoneId) && b.templateId === event.templateId)[0])) {
       bossName = boss.name
@@ -204,10 +204,10 @@ module.exports = function WorldBossHelper(dispatch) {
   }
 
   function notice(msg) {
-    dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 1, {
-      unk1: 42,
-      unk2: 0,
-      unk3: 0,
+    dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 2, {
+      type: 42,
+      chat: 0,
+      channel: 0,
       message: msg
     })
   }
@@ -215,9 +215,9 @@ module.exports = function WorldBossHelper(dispatch) {
   function warn(name) {
     command.message(' (World-Boss) Player nearby: [' + red(name) + '].')
     dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 1, {
-      unk1: 69,
-      unk2: 0,
-      unk3: 0,
+      type: 69,
+      chat: 0,
+      channel: 0,
       message: 'Player nearby: ' + red(name)
     })
   }
