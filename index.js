@@ -96,7 +96,7 @@ module.exports = function WorldBossHelper(dispatch) {
     currentChannel = event.channel
   })
 
-  dispatch.hook('S_SPAWN_NPC', 7, (event) => {
+  dispatch.hook('S_SPAWN_NPC', 8, (event) => {
     let boss
     if (enabled && (boss = bosses.filter(b => b.huntingZoneId.includes(event.huntingZoneId) && b.templateId === event.templateId)[0])) {
       bossName = boss.name
