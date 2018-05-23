@@ -2,8 +2,9 @@
 A `tera-proxy` module to notify you if a World Boss is near you. It uses a dungeon event message style notice, and spawns a Vergos' Head under the boss for more visibility. It also uploads kill times to my server, timers can be checked [here](https://tera.zone/worldboss/). I made this for EU originally, but it should also work on NA. It can also send notifications to Discord via webhook. Supports Caali's auto-update feature.
 
 ## Dependencies
-- `command` module
-- `tera-vec3` module
+- `command`
+- `tera-vec3`
+- `request`
 
 ## Config
 You can edit `config.json` to change default settings. If you want to notify your friends/guild on Discord, you can create a Webhook, and enter the URL in the config.
