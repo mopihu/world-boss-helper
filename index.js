@@ -41,7 +41,7 @@ module.exports = function WorldBossHelper(dispatch) {
       case 'clear':
         command.message(' (World-Boss) Markers cleared.')
         for (let itemId of mobid) {
-          despawnthis(itemId)
+          despawnItem(itemId)
         }
         break
 
@@ -67,37 +67,41 @@ module.exports = function WorldBossHelper(dispatch) {
         }
         break
 
+      case 'ui':
+        dispatch.toClient('S_OPEN_AWESOMIUM_WEB_URL', 1, {url: 'tera.zone/worldboss/ingame.php?serverId='+serverId})
+        break
+
       default:
         enabled = !enabled
         command.message(enabled ? ' (World-Boss) Module: [' + green('ON') + '].' : ' (World-Boss) Module: [' + red('OFF') + '].')
         if (!enabled) {
           for (let itemId of mobid) {
-            despawnthis(itemId)
+            despawnItem(itemId)
           }
         }
     }
   })
 
-  dispatch.hook('S_LOGIN', 10, event => {
+  dispatch.hook('S_LOGIN', 10, (event) => {
     serverId = event.serverId
     playerName = event.name
   })
 
-  dispatch.hook('S_LOAD_TOPO', 3, event => {
+  dispatch.hook('S_LOAD_TOPO', 3, (event) => {
     currentZone = event.zone
     mobid = []
   })
 
-  dispatch.hook('S_CURRENT_CHANNEL', 2, event => {
+  dispatch.hook('S_CURRENT_CHANNEL', 2, (event) => {
     currentChannel = event.channel
   })
 
-  dispatch.hook('S_SPAWN_NPC', 7, event => {
+  dispatch.hook('S_SPAWN_NPC', 7, (event) => {
     let boss
     if (enabled && (boss = bosses.filter(b => b.huntingZoneId.includes(event.huntingZoneId) && b.templateId === event.templateId)[0])) {
       bossName = boss.name
       if (marker) {
-        markthis(event.loc.x, event.loc.y, event.loc.z, event.gameId.low)
+        spawnItem(event.loc, event.gameId.low)
         mobid.push(event.gameId.low)
       }
       request.post('https://tera.zone/worldboss/upload.php', {
@@ -127,7 +131,7 @@ module.exports = function WorldBossHelper(dispatch) {
     }
   })
 
-  dispatch.hook('S_DESPAWN_NPC', 3, event => {
+  dispatch.hook('S_DESPAWN_NPC', 3, (event) => {
     if (mobid.includes(event.gameId.low)) {
       if (alerted && bossName) {
         if (event.type == 5) {
@@ -164,26 +168,25 @@ module.exports = function WorldBossHelper(dispatch) {
         }
       }
       bossName = null
-      despawnthis(event.gameId.low)
+      despawnItem(event.gameId.low)
       mobid.splice(mobid.indexOf(event.gameId.low), 1)
     }
   })
 
-  dispatch.hook('S_SPAWN_USER', 13, event => {
+  dispatch.hook('S_SPAWN_USER', 13, (event) => {
     if (zones.includes(currentZone) && warnlist.includes(event.name)) {
       warn(event.name)
     }
   })
 
-  function markthis(locationx, locationy, locationz, idRef) {
-    let itemloc = new Vec3(locationx, locationy, locationz)
+  function spawnItem(loc, gameId) {
     dispatch.toClient('S_SPAWN_DROPITEM', 6, {
       gameId: {
-        low: idRef,
+        low: gameId,
         high: 0,
         unsigned: true
       },
-      loc: itemloc,
+      loc: loc,
       item: itemId,
       amount: 1,
       expiry: 600000,
@@ -193,10 +196,10 @@ module.exports = function WorldBossHelper(dispatch) {
     })
   }
 
-  function despawnthis(despawnid) {
+  function despawnItem(gameId) {
     dispatch.toClient('S_DESPAWN_DROPITEM', 4, {
       gameId: {
-        low: despawnid,
+        low: gameId,
         high: 0,
         unsigned: true
       }
@@ -214,7 +217,7 @@ module.exports = function WorldBossHelper(dispatch) {
 
   function warn(name) {
     command.message(' (World-Boss) Player nearby: [' + red(name) + '].')
-    dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 1, {
+    dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 2, {
       type: 69,
       chat: 0,
       channel: 0,
@@ -228,5 +231,9 @@ module.exports = function WorldBossHelper(dispatch) {
 
   function red(text) {
     return '<font color="#FF7F7F">' + text + '</font>'
+  }
+
+  this.destructor = function() {
+    command.remove('wbh')
   }
 }
