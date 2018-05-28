@@ -11,12 +11,11 @@ let messager = config.messager
 let marker = config.marker
 let discord = config.discordWebhookUrl
 let mention = config.mention
-let warnlist = config.warnlist
 
 module.exports = function WorldBossHelper(dispatch) {
   const command = Command(dispatch)
 
-  let zones = [7004, 7014, 7021, 7022]
+  let playerName
   let currentZone
   let bossName
   let mobid = []
@@ -45,30 +44,10 @@ module.exports = function WorldBossHelper(dispatch) {
         }
         break
 
-      case 'warnlist':
-        command.message(' (World-Boss) Warn list: ' + warnlist.join(', '))
-        break
-
-      case 'addwarn':
-        if (!warnlist.includes(arg2)) {
-          warnlist.push(arg2)
-          command.message(' (World-Boss) Added to warn list: [' + green(arg2) + '].')
-        } else {
-          command.message(' (World-Boss) [' + green(arg2) + '] is already on your warn list.')
-        }
-        break
-
-      case 'removewarn':
-        if (warnlist.includes(arg2)) {
-          warnlist.splice(warnlist.indexOf(arg2), 1)
-          command.message(' (World-Boss) Removed from warn list: [' + red(arg2) + '].')
-        } else {
-          command.message(' (World-Boss) [' + red(arg2) + '] is not on your warn list.')
-        }
-        break
-
       case 'ui':
-        dispatch.toClient('S_OPEN_AWESOMIUM_WEB_URL', 1, {url: 'tera.zone/worldboss/ingame.php?serverId='+serverId})
+        dispatch.toClient('S_OPEN_AWESOMIUM_WEB_URL', 1, {
+          url: 'tera.zone/worldboss/ingame.php?serverId=' + serverId
+        })
         break
 
       default:
@@ -84,7 +63,11 @@ module.exports = function WorldBossHelper(dispatch) {
 
   dispatch.hook('S_LOGIN', 10, (event) => {
     serverId = event.serverId
-    playerName = event.name
+    if (discord) {
+      playerName = event.name
+    } else {
+      playerName = "Anonymous"
+    }
   })
 
   dispatch.hook('S_LOAD_TOPO', 3, (event) => {
@@ -173,12 +156,6 @@ module.exports = function WorldBossHelper(dispatch) {
     }
   })
 
-  dispatch.hook('S_SPAWN_USER', 13, (event) => {
-    if (zones.includes(currentZone) && warnlist.includes(event.name)) {
-      warn(event.name)
-    }
-  })
-
   function spawnItem(loc, gameId) {
     dispatch.toClient('S_SPAWN_DROPITEM', 6, {
       gameId: {
@@ -212,16 +189,6 @@ module.exports = function WorldBossHelper(dispatch) {
       chat: 0,
       channel: 0,
       message: msg
-    })
-  }
-
-  function warn(name) {
-    command.message(' (World-Boss) Player nearby: [' + red(name) + '].')
-    dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 2, {
-      type: 69,
-      chat: 0,
-      channel: 0,
-      message: 'Player nearby: ' + red(name)
     })
   }
 
