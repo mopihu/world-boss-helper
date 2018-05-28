@@ -38,9 +38,11 @@ You can edit `config.json` to change default settings. If you want to notify you
 
 ## Changelog
 <details>
+  
   2018-05-28
   - Character names will only be uploaded, if Discord notifications are enabled
   - Removed warn list (this was a useful feature back when everyone was hunting/stealing bosses, but probably not needed anymore)
+  
 </details>
 
 ## Credits
