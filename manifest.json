@@ -1,15 +1,14 @@
 {
   "files": {
-    "index.js": "1860a57e2e526bcf52d6a43012b0c5cec08560817e571cbf792f1d506241d00b",
+    "index.js": "b80071138828eed018075b053264ee715af4e4315deca364f8ef01ceeadeaa17",
     "module.json": "d5a071ec8fd2a1dfffc0d0acce13a68dbc3d9419e239f8d45a55ab25adf8a02c",
     "bosses.json": {"overwrite": false, "hash": "2e0d5bbc5e6aa03565b6c645e661a1a0e474a6be1d66b05d5cdfab734792bfcb"},
-    "config.json": {"overwrite": false, "hash": "e4d7bded7dabc2c0dce5b373f8ca2a5156fc760a0a38b2e9b3f196651d5b93b4"}
+    "config.json": {"overwrite": false, "hash": "5cb0571b655470405962d97c57117f15142e74197f42261b52fd6ec215bc5999"}
   },
   "defs": {
     "S_LOGIN": 10,
     "S_SPAWN_NPC": 8,
     "S_DESPAWN_NPC": 3,
-    "S_SPAWN_USER": 13,
     "S_CURRENT_CHANNEL": 2,
     "S_LOAD_TOPO": 3,
     "S_SPAWN_DROPITEM": 6,
