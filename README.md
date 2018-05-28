@@ -36,5 +36,12 @@ You can edit `config.json` to change default settings. If you want to notify you
 ### `wbh ui`
 - Shows timers via in game browser
 
+## Changelog
+<details>
+  2018-05-28
+  - Character names will only be uploaded, if Discord notifications are enabled
+  - Removed warn list (this was a useful feature back when everyone was hunting/stealing bosses, but probably not needed anymore)
+</details>
+
 ## Credits
 - This module was originally based on an earlier version of [WarnMe](https://github.com/SerenTera/WarnMe) by [SerenTera](https://github.com/SerenTera)
