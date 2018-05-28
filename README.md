@@ -1,10 +1,19 @@
 # world-boss-helper
-A `tera-proxy` module to notify you if a World Boss is near you. It uses a dungeon event message style notice, and spawns a Vergos' Head under the boss for more visibility. It also uploads kill times to my server, timers can be checked [here](https://tera.zone/worldboss/). I made this for EU originally, but it should also work on NA. It can also send notifications to Discord via webhook. Supports Caali's auto-update feature.
+A `tera-proxy` module that aims to help with searching for and keeping track of World Bosses.
+
+## Features
+- Notifies you in the middle of the screen, if a World Boss is found / is dead / moves out of range
+- Spawns a Vergos' Head under the boss for more visibility
+- Uploads kill times to a spreadsheet, that is publicly available [HERE](https://tera.zone/worldboss/eu/)
+- It can send notifications to a Discord webhook, so that your friends/guild mates can instantly know you found a boss
+- Supports Caali's auto update
 
 ## Dependencies
 - `command`
 - `tera-vec3`
 - `request`
+
+If you use Pinkie's proxy, then you need to run `npm install request` in the main proxy directory. If you use Caali's proxy, then you're good to go, because `request` is already bundled in it.
 
 ## Config
 You can edit `config.json` to change default settings. If you want to notify your friends/guild on Discord, you can create a Webhook, and enter the URL in the config.
@@ -24,12 +33,8 @@ You can edit `config.json` to change default settings. If you want to notify you
 - Default is on
 ### `wbh clear`
 - Attempts to clear markers
-### `wbh addwarn <player>`
-- Adds a player to the warn list (Notifies you if a player is nearby while you're killing a boss)
-### `wbh removewarn <player>`
-- Removes a player from the warn list
 ### `wbh ui`
 - Shows timers via in game browser
 
 ## Credits
-- Contains code from: [WarnMe](https://github.com/SerenTera/WarnMe) by [SerenTera](https://github.com/SerenTera)
+- This module was originally based on an earlier version of [WarnMe](https://github.com/SerenTera/WarnMe) by [SerenTera](https://github.com/SerenTera)
