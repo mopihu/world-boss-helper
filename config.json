@@ -4,6 +4,5 @@
   "messager": true,
   "marker": true,
   "discordWebhookUrl": "",
-  "mention": "@here",
-  "warnlist": []
+  "mention": "@here"
 }
