@@ -2,8 +2,8 @@
   "files": {
     "index.js": "e8be9dccf831e5dc92c3824f6f4c238205154f38048c3b5b88171020d426bd2e",
     "module.json": "b4bb0f63295099712bc0f1f62a6091d08e33b624e6f6ba85c28f0460c527479b",
-    "bosses.json": {"overwrite": false, "hash": "0709c4a4c7248e43f8fb345f1e59924f6962a58ea7c32e6ef1e831714aaf0b79"},
-    "config.json": {"overwrite": false, "hash": "5cb0571b655470405962d97c57117f15142e74197f42261b52fd6ec215bc5999"}
+    "bosses.json": {"overwrite": false, "hash": "2e0d5bbc5e6aa03565b6c645e661a1a0e474a6be1d66b05d5cdfab734792bfcb"},
+    "config.json": {"overwrite": false, "hash": "0709c4a4c7248e43f8fb345f1e59924f6962a58ea7c32e6ef1e831714aaf0b79"}
   },
   "defs": {
     "S_LOGIN": 10,
