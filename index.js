@@ -45,7 +45,7 @@ module.exports = function WorldBossHelper(dispatch) {
         break
 
       case 'ui':
-        dispatch.toClient('S_OPEN_AWESOMIUM_WEB_URL', 1, {
+        dispatch.send('S_OPEN_AWESOMIUM_WEB_URL', 1, {
           url: 'tera.zone/worldboss/ingame.php?serverId=' + serverId
         })
         break
@@ -114,7 +114,7 @@ module.exports = function WorldBossHelper(dispatch) {
     }
   })
 
-  dispatch.hook('S_DESPAWN_NPC', 3, (event) => {
+  dispatch.hook('S_DESPAWN_NPC', 3, {order: -100}, (event) => {
     if (mobid.includes(event.gameId.low)) {
       if (alerted && bossName) {
         if (event.type == 5) {
@@ -157,7 +157,7 @@ module.exports = function WorldBossHelper(dispatch) {
   })
 
   function spawnItem(loc, gameId) {
-    dispatch.toClient('S_SPAWN_DROPITEM', 6, {
+    dispatch.send('S_SPAWN_DROPITEM', 6, {
       gameId: {
         low: gameId,
         high: 0,
@@ -174,7 +174,7 @@ module.exports = function WorldBossHelper(dispatch) {
   }
 
   function despawnItem(gameId) {
-    dispatch.toClient('S_DESPAWN_DROPITEM', 4, {
+    dispatch.send('S_DESPAWN_DROPITEM', 4, {
       gameId: {
         low: gameId,
         high: 0,
@@ -184,7 +184,7 @@ module.exports = function WorldBossHelper(dispatch) {
   }
 
   function notice(msg) {
-    dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 2, {
+    dispatch.send('S_DUNGEON_EVENT_MESSAGE', 2, {
       type: 42,
       chat: 0,
       channel: 0,
