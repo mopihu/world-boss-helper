@@ -1,8 +1,0 @@
-{
-  "enabled": true,
-  "alerted": true,
-  "messager": true,
-  "marker": true,
-  "discordWebhookUrl": "",
-  "mention": "@here"
-}
