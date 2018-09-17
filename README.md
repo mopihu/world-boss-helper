@@ -5,18 +5,7 @@ A `tera-proxy` module that aims to help with searching for and keeping track of 
 - Notifies you in the middle of the screen, if a World Boss is found / is dead / moves out of range
 - Spawns a Vergos' Head under the boss for more visibility
 - Uploads kill times to a spreadsheet, that is publicly available [HERE](https://tera.zone/worldboss/eu/)
-- It can send notifications to a Discord webhook, so that your friends/guild mates can instantly know you found a boss
 - Supports Caali's auto update
-
-## Dependencies
-- `command`
-- `tera-vec3`
-- `request`
-
-If you use Pinkie's proxy, then you need to run `npm install request` in the main proxy directory. If you use Caali's proxy, then you're good to go, because `request` is already bundled in it.
-
-## Config
-You can edit `config.json` to change default settings. If you want to notify your friends/guild on Discord, you can create a Webhook, and enter the URL in the config.
 
 ## Usage
 ### `wbh`
@@ -37,6 +26,10 @@ You can edit `config.json` to change default settings. If you want to notify you
 - Shows timers via in game browser
 
 ## Changelog
+### 2018-09-17
+- Updated to Caali's new features and latest defs
+- Updated the server side stuff and added new regions to the spreadsheet: KR, JP, RU
+- Removed discord notification feature, will be replaced with something else soon
 ### 2018-06-01
 - Updated to `dispatch.send()`
 - Fixed incompatibility with `no-more-death-animations`
