@@ -1,19 +1,17 @@
 {
-  "files": {
-    "index.js": "0baa5660cf40cb7efb8e69266ec48780eda57e548dfb1b38065c9dbc607f9940",
-    "module.json": "b4bb0f63295099712bc0f1f62a6091d08e33b624e6f6ba85c28f0460c527479b",
-    "bosses.json": {"overwrite": false, "hash": "2e0d5bbc5e6aa03565b6c645e661a1a0e474a6be1d66b05d5cdfab734792bfcb"},
-    "config.json": {"overwrite": false, "hash": "0709c4a4c7248e43f8fb345f1e59924f6962a58ea7c32e6ef1e831714aaf0b79"}
-  },
-  "defs": {
-    "S_LOGIN": 10,
-    "S_SPAWN_NPC": 8,
-    "S_DESPAWN_NPC": 3,
-    "S_CURRENT_CHANNEL": 2,
-    "S_LOAD_TOPO": 3,
-    "S_SPAWN_DROPITEM": 6,
-    "S_DESPAWN_DROPITEM": 4,
-    "S_DUNGEON_EVENT_MESSAGE": 2,
-    "S_OPEN_AWESOMIUM_WEB_URL": 1
-  }
+	"files": {
+		"bosses.json": "4c84fe5a1fbe30778d5f87e3077c5d36a1b7f8431f42548c53d92c73d91dac5f",
+		"index.js": "79acb05043322608713273c6dc83b8788aa7a379d1295d0083b3b1f65208493d",
+		"module.json": "90dc0e5bebd326c715a77a4f1075663a93c3ee003b48bd4f47e67e5a646ea930",
+		"settings.js": "d662867630579d87d1ce89f918a091f4ef2b2028d4fdc504483cc379136e2ddd"
+	},
+	"defs": {
+		"S_CURRENT_CHANNEL": 2,
+		"S_DESPAWN_DROPITEM": 4,
+		"S_DESPAWN_NPC": 3,
+		"S_DUNGEON_EVENT_MESSAGE": 2,
+		"S_OPEN_AWESOMIUM_WEB_URL": 1,
+		"S_SPAWN_DROPITEM": 6,
+		"S_SPAWN_NPC": 9
+	}
 }

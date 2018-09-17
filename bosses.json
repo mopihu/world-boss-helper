@@ -5,11 +5,6 @@
     "templateId": 33
   },
   {
-    "name": "Nyxarras",
-    "huntingZoneId": [38, 6553638, 13107238],
-    "templateId": 35
-  },
-  {
     "name": "Reaver",
     "huntingZoneId": [10, 6553610, 13107210],
     "templateId": 99
@@ -18,6 +13,11 @@
     "name": "Linyphi",
     "huntingZoneId": [51, 6553651, 13107251],
     "templateId": 7011
+  },
+  {
+    "name": "Nyxarras",
+    "huntingZoneId": [38, 6553638, 13107238],
+    "templateId": 35
   },
   {
     "name": "Kanash",

@@ -1,4 +1,11 @@
 {
-    "servers": ["https://raw.githubusercontent.com/mopihu/world-boss-helper/master/"],
-    "supportUrl": ""
+  "disableAutoUpdate": false,
+  "options": {
+    "niceName": "World Boss Helper",
+    "settingsVersion": 1,
+    "settingsFile": "config.json",
+    "settingsMigrator": "settings.js"
+  },
+  "servers": ["https://raw.githubusercontent.com/mopihu/world-boss-helper/master/"],
+  "supportUrl": ""
 }
