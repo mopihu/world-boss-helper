@@ -1,7 +1,8 @@
 {
 	"files": {
 		"bosses.json": "4c84fe5a1fbe30778d5f87e3077c5d36a1b7f8431f42548c53d92c73d91dac5f",
-		"index.js": "79acb05043322608713273c6dc83b8788aa7a379d1295d0083b3b1f65208493d",
+		"config.json": "6e88450db870458d7105238509aa47a43235c0da15bc8be183d94c176667bd48",
+		"index.js": "f76eab0bf994d5a2b01259a2b8989db0fa5fb6d7126793f7f8ee92c6d42f9fe3",
 		"module.json": "90dc0e5bebd326c715a77a4f1075663a93c3ee003b48bd4f47e67e5a646ea930",
 		"settings.js": "d662867630579d87d1ce89f918a091f4ef2b2028d4fdc504483cc379136e2ddd"
 	},
@@ -12,6 +13,6 @@
 		"S_DUNGEON_EVENT_MESSAGE": 2,
 		"S_OPEN_AWESOMIUM_WEB_URL": 1,
 		"S_SPAWN_DROPITEM": 6,
-		"S_SPAWN_NPC": 9
+		"S_SPAWN_NPC": 10
 	}
 }

@@ -37,7 +37,7 @@ module.exports = function WorldBossHelper(mod) {
     },
     ui() {
       mod.send('S_OPEN_AWESOMIUM_WEB_URL', 1, {
-        url: 'tera.zone/worldboss/ingame.php?serverId=' + serverId
+        url: 'tera.zone/worldboss/ingame.php?serverId=' + mod.game.me.serverId
       });
     },
     $none() {
@@ -59,7 +59,7 @@ module.exports = function WorldBossHelper(mod) {
     currentChannel = event.channel;
   })
 
-  mod.hook('S_SPAWN_NPC', 9, event => {
+  mod.hook('S_SPAWN_NPC', 10, event => {
     if (!mod.settings.enabled) return;
     let boss;
     if (boss = bosses.filter(b => b.huntingZoneId.includes(event.huntingZoneId) && b.templateId === event.templateId)[0]) {
