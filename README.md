@@ -26,6 +26,8 @@ A `tera-proxy` module that aims to help with searching for and keeping track of 
 - Shows timers via in game browser
 
 ## Changelog
+### 2018-12-15
+- Updated to BigInt/NextGen
 ### 2018-09-17
 - Updated to Caali's new features and latest defs
 - Updated the server side stuff and added new regions to the spreadsheet: KR, JP, RU
