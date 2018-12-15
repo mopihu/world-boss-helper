@@ -1,11 +1,24 @@
 {
-  "disableAutoUpdate": false,
-  "options": {
-    "niceName": "World Boss Helper",
-    "settingsVersion": 1,
-    "settingsFile": "config.json",
-    "settingsMigrator": "settings.js"
-  },
-  "servers": ["https://raw.githubusercontent.com/mopihu/world-boss-helper/master/"],
-  "supportUrl": ""
+    "disableAutoUpdate": false,
+    "disabled": false,
+    "name": "world-boss-helper",
+    "author": "m0py",
+    "description": "A tera-proxy module that notifies you if a World Boss is near you.",
+    "version": "1.0",
+    "donationUrl": "",
+    "supportUrl": "https://github.com/mopihu/world-boss-helper/issues",
+    "drmKey": "",
+    "servers": ["https://raw.githubusercontent.com/mopihu/world-boss-helper/master/"],
+    "options": {
+        "niceName": "WorldBossHelper",
+        "guiName": "World Boss Helper",
+        "loadOn": "versioncheck",
+        "reloadable": true,
+        "settingsVersion": 1,
+        "settingsFile": "config.json",
+        "settingsMigrator": "settings.js",
+        "settingsAutosaveOnClose": true
+    },
+    "dependencies": {},
+    "conflicts": []
 }

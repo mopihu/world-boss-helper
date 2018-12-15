@@ -65,8 +65,8 @@ module.exports = function WorldBossHelper(mod) {
     if (boss = bosses.filter(b => b.huntingZoneId.includes(event.huntingZoneId) && b.templateId === event.templateId)[0]) {
       bossName = boss.name;
       if (mod.settings.marker) {
-        spawnItem(event.loc, event.gameId.low);
-        mobIds.push(event.gameId.low);
+        spawnItem(event.loc, event.gameId);
+        mobIds.push(event.gameId);
       }
       if (mod.settings.alerted) {
         notice('Found boss: ' + bossName + '!');
@@ -79,7 +79,7 @@ module.exports = function WorldBossHelper(mod) {
 
   mod.hook('S_DESPAWN_NPC', 3, {order: -100}, event => {
     if (!mod.settings.enabled) return;
-    if (mobIds.includes(event.gameId.low)) {
+    if (mobIds.includes(event.gameId)) {
       if (mod.settings.alerted && bossName) {
         if (event.type == 5) {
           request.post('https://tera.zone/worldboss/upload.php', {
@@ -112,18 +112,14 @@ module.exports = function WorldBossHelper(mod) {
         }
       }
       bossName = null;
-      despawnItem(event.gameId.low);
-      mobIds.splice(mobIds.indexOf(event.gameId.low), 1);
+      despawnItem(event.gameId);
+      mobIds.splice(mobIds.indexOf(event.gameId), 1);
     }
   })
 
   function spawnItem(loc, gameId) {
     mod.send('S_SPAWN_DROPITEM', 6, {
-      gameId: {
-        low: gameId,
-        high: 0,
-        unsigned: true
-      },
+      gameId: gameId*100n,
       loc: loc,
       item: mod.settings.itemId,
       amount: 1,
@@ -136,11 +132,7 @@ module.exports = function WorldBossHelper(mod) {
 
   function despawnItem(gameId) {
     mod.send('S_DESPAWN_DROPITEM', 4, {
-      gameId: {
-        low: gameId,
-        high: 0,
-        unsigned: true
-      }
+      gameId: gameId*100n,
     });
   }
 
