@@ -1,7 +1,6 @@
 {
     "files": {
         "bosses.json": "4c84fe5a1fbe30778d5f87e3077c5d36a1b7f8431f42548c53d92c73d91dac5f",
-        "config.json": "6e88450db870458d7105238509aa47a43235c0da15bc8be183d94c176667bd48",
         "index.js": "b06632a0723d2ced51577b8f9b4e7b8338bec16cf001f12718566e2ebbb581b2",
         "module.json": "70806d8ec9c722fa4c87ed6b9a860414aa3ba2d4d3aa140fa4db95bce5585b9d",
         "settings.js": "d662867630579d87d1ce89f918a091f4ef2b2028d4fdc504483cc379136e2ddd"
