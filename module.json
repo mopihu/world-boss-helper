@@ -1,6 +1,4 @@
 {
-    "disableAutoUpdate": false,
-    "disabled": false,
     "name": "world-boss-helper",
     "author": "m0py",
     "description": "A tera-proxy module that notifies you if a World Boss is near you.",

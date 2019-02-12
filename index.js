@@ -3,6 +3,11 @@ const request = require('request');
 const bosses = require('./bosses.json');
 
 module.exports = function WorldBossHelper(mod) {
+  if (mod.isClassic) {
+    mod.log('Classic Server is not supported. Module disabled.');
+    return;
+  }
+
   let bossName;
   let currentChannel;
   let mobIds = [];
@@ -59,7 +64,7 @@ module.exports = function WorldBossHelper(mod) {
     currentChannel = event.channel;
   })
 
-  mod.hook('S_SPAWN_NPC', (mod.majorPatchVersion < 79 ? 10 : 11), event => {
+  mod.hook('S_SPAWN_NPC', 11, event => {
     if (!mod.settings.enabled) return;
     let boss;
     if (boss = bosses.filter(b => b.huntingZoneId.includes(event.huntingZoneId) && b.templateId === event.templateId)[0]) {
