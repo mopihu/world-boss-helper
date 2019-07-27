@@ -123,7 +123,7 @@ module.exports = function WorldBossHelper(mod) {
   })
 
   function spawnItem(loc, gameId) {
-    mod.send('S_SPAWN_DROPITEM', 6, {
+    mod.send('S_SPAWN_DROPITEM', 7, {
       gameId: gameId*100n,
       loc: loc,
       item: mod.settings.itemId,
